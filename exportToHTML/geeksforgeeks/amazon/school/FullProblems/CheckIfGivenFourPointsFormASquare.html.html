@@ -1,0 +1,447 @@
+<html>
+<head>
+<title>CheckIfGivenFourPointsFormASquare.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: #999999; font-weight: normal; font-style: normal; }
+.s0 { color: rgb(0,0,128); font-weight: bold; }
+.s1 { color: rgb(0,0,0); }
+.s2 { color: rgb(128,128,128); font-style: italic; }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+CheckIfGivenFourPointsFormASquare.java</FONT>
+</center></TD></TR></TABLE>
+<pre>
+<a name="l1"><span class="ln">1    </span></a><span class="s0">package </span><span class="s1">geeksforgeeks.amazon.school.FullProblems; 
+<a name="l2"><span class="ln">2    </span></a> 
+<a name="l3"><span class="ln">3    </span></a></span><span class="s0">import </span><span class="s1">java.util.ArrayList; 
+<a name="l4"><span class="ln">4    </span></a></span><span class="s0">import </span><span class="s1">java.util.Collections; 
+<a name="l5"><span class="ln">5    </span></a></span><span class="s0">import </span><span class="s1">java.util.Comparator; 
+<a name="l6"><span class="ln">6    </span></a></span><span class="s0">import </span><span class="s1">java.util.Scanner; 
+<a name="l7"><span class="ln">7    </span></a> 
+<a name="l8"><span class="ln">8    </span></a></span><span class="s2">/** 
+<a name="l9"><span class="ln">9    </span></a> * Created by erdee on 18-01-2017. 
+<a name="l10"><span class="ln">10   </span></a> */</span><span class="s1"> 
+<a name="l11"><span class="ln">11   </span></a></span><span class="s2">/* 
+<a name="l12"><span class="ln">12   </span></a>* Maths Amazon 
+<a name="l13"><span class="ln">13   </span></a>* Given coordinates of four points in a plane, find if the four points form a square or not. 
+<a name="l14"><span class="ln">14   </span></a> 
+<a name="l15"><span class="ln">15   </span></a>Input: 
+<a name="l16"><span class="ln">16   </span></a>The first line of input contains an integer T denoting the number of test cases. Then T test cases follow. The first line of each test case contains 4 space separated integer points a , b , c , d 
+<a name="l17"><span class="ln">17   </span></a> 
+<a name="l18"><span class="ln">18   </span></a>Output: 
+<a name="l19"><span class="ln">19   </span></a>For each test case print 1 if the four points form a square else print 0. 
+<a name="l20"><span class="ln">20   </span></a>Remember to output the answer of each test case in a new line. 
+<a name="l21"><span class="ln">21   </span></a> 
+<a name="l22"><span class="ln">22   </span></a>Constraints: 
+<a name="l23"><span class="ln">23   </span></a>1&lt;=T&lt;=100 
+<a name="l24"><span class="ln">24   </span></a>1&lt;=a,b,c,d&lt;=100 
+<a name="l25"><span class="ln">25   </span></a> 
+<a name="l26"><span class="ln">26   </span></a>Example: 
+<a name="l27"><span class="ln">27   </span></a> 
+<a name="l28"><span class="ln">28   </span></a>Input: 
+<a name="l29"><span class="ln">29   </span></a>2 
+<a name="l30"><span class="ln">30   </span></a>20 20 20 10 10 20 10 10 
+<a name="l31"><span class="ln">31   </span></a>10 10 10 10 20 10 20 30 
+<a name="l32"><span class="ln">32   </span></a> 
+<a name="l33"><span class="ln">33   </span></a>Output: 
+<a name="l34"><span class="ln">34   </span></a>1 
+<a name="l35"><span class="ln">35   </span></a>0*/</span><span class="s1"> 
+<a name="l36"><span class="ln">36   </span></a></span><span class="s2">/* 
+<a name="l37"><span class="ln">37   </span></a>* To check for square, we need to check for following. 
+<a name="l38"><span class="ln">38   </span></a>a) All fours sides formed by points are same. 
+<a name="l39"><span class="ln">39   </span></a>b) The angle between any two sides is 90 degree. (This condition is required as Quadrilateral also has same sides. */</span><span class="s1"> 
+<a name="l40"><span class="ln">40   </span></a></span><span class="s2">//----------------------------------------------------------------</span><span class="s1"> 
+<a name="l41"><span class="ln">41   </span></a></span><span class="s2">/* 
+<a name="l42"><span class="ln">42   </span></a>* The idea is to pick any point and calculate its distance from rest of the points. Let the picked picked point be ‘p’. To form a square, distance of two points must be same from ‘p’, let this distance be d. The distance from one point must be different from that d and must be equal to √2 times d. Let this point with different distance be ‘q’. 
+<a name="l43"><span class="ln">43   </span></a>The above condition is not good enough as the the point with different distance can be on the other side. We also need to check that q is at same distance from 2 other points and this distance is same as d.*/</span><span class="s1"> 
+<a name="l44"><span class="ln">44   </span></a> 
+<a name="l45"><span class="ln">45   </span></a></span><span class="s2">/* 
+<a name="l46"><span class="ln">46   </span></a>* // A C++ program to check if four given points form a square or not. 
+<a name="l47"><span class="ln">47   </span></a>#include&lt;iostream&gt; 
+<a name="l48"><span class="ln">48   </span></a>using namespace std; 
+<a name="l49"><span class="ln">49   </span></a> 
+<a name="l50"><span class="ln">50   </span></a>// Structure of a point in 2D space 
+<a name="l51"><span class="ln">51   </span></a>struct Point 
+<a name="l52"><span class="ln">52   </span></a>{ 
+<a name="l53"><span class="ln">53   </span></a>    int x, y; 
+<a name="l54"><span class="ln">54   </span></a>}; 
+<a name="l55"><span class="ln">55   </span></a> 
+<a name="l56"><span class="ln">56   </span></a>// A utility function to find square of distance 
+<a name="l57"><span class="ln">57   </span></a>// from point 'p' to poitn 'q' 
+<a name="l58"><span class="ln">58   </span></a>int distSq(Point p, Point q) 
+<a name="l59"><span class="ln">59   </span></a>{ 
+<a name="l60"><span class="ln">60   </span></a>    return (p.x - q.x)*(p.x - q.x) + 
+<a name="l61"><span class="ln">61   </span></a>           (p.y - q.y)*(p.y - q.y); 
+<a name="l62"><span class="ln">62   </span></a>} 
+<a name="l63"><span class="ln">63   </span></a> 
+<a name="l64"><span class="ln">64   </span></a>// This function returns true if (p1, p2, p3, p4) form a 
+<a name="l65"><span class="ln">65   </span></a>// square, otherwise false 
+<a name="l66"><span class="ln">66   </span></a>bool isSquare(Point p1, Point p2, Point p3, Point p4) 
+<a name="l67"><span class="ln">67   </span></a>{ 
+<a name="l68"><span class="ln">68   </span></a>    int d2 = distSq(p1, p2);  // from p1 to p2 
+<a name="l69"><span class="ln">69   </span></a>    int d3 = distSq(p1, p3);  // from p1 to p3 
+<a name="l70"><span class="ln">70   </span></a>    int d4 = distSq(p1, p4);  // from p1 to p4 
+<a name="l71"><span class="ln">71   </span></a> 
+<a name="l72"><span class="ln">72   </span></a>    // If lengths if (p1, p2) and (p1, p3) are same, then 
+<a name="l73"><span class="ln">73   </span></a>    // following conditions must met to form a square. 
+<a name="l74"><span class="ln">74   </span></a>    // 1) Square of length of (p1, p4) is same as twice 
+<a name="l75"><span class="ln">75   </span></a>    //    the square of (p1, p2) 
+<a name="l76"><span class="ln">76   </span></a>    // 2) p4 is at same distance from p2 and p3 
+<a name="l77"><span class="ln">77   </span></a>    if (d2 == d3 &amp;&amp; 2*d2 == d4) 
+<a name="l78"><span class="ln">78   </span></a>    { 
+<a name="l79"><span class="ln">79   </span></a>        int d = distSq(p2, p4); 
+<a name="l80"><span class="ln">80   </span></a>        return (d == distSq(p3, p4) &amp;&amp; d == d2); 
+<a name="l81"><span class="ln">81   </span></a>    } 
+<a name="l82"><span class="ln">82   </span></a> 
+<a name="l83"><span class="ln">83   </span></a>    // The below two cases are similar to above case 
+<a name="l84"><span class="ln">84   </span></a>    if (d3 == d4 &amp;&amp; 2*d3 == d2) 
+<a name="l85"><span class="ln">85   </span></a>    { 
+<a name="l86"><span class="ln">86   </span></a>        int d = distSq(p2, p3); 
+<a name="l87"><span class="ln">87   </span></a>        return (d == distSq(p2, p4) &amp;&amp; d == d3); 
+<a name="l88"><span class="ln">88   </span></a>    } 
+<a name="l89"><span class="ln">89   </span></a>    if (d2 == d4 &amp;&amp; 2*d2 == d3) 
+<a name="l90"><span class="ln">90   </span></a>    { 
+<a name="l91"><span class="ln">91   </span></a>        int d = distSq(p2, p3); 
+<a name="l92"><span class="ln">92   </span></a>        return (d == distSq(p3, p4) &amp;&amp; d == d2); 
+<a name="l93"><span class="ln">93   </span></a>    } 
+<a name="l94"><span class="ln">94   </span></a> 
+<a name="l95"><span class="ln">95   </span></a>    return false; 
+<a name="l96"><span class="ln">96   </span></a>} 
+<a name="l97"><span class="ln">97   </span></a> 
+<a name="l98"><span class="ln">98   </span></a>// Driver program to test above function 
+<a name="l99"><span class="ln">99   </span></a>int main() 
+<a name="l100"><span class="ln">100  </span></a>{ 
+<a name="l101"><span class="ln">101  </span></a>    Point p1 = {20, 10}, p2 = {10, 20}, 
+<a name="l102"><span class="ln">102  </span></a>          p3 = {20, 20}, p4 = {10, 10}; 
+<a name="l103"><span class="ln">103  </span></a>    isSquare(p1, p2, p3, p4)? cout &lt;&lt; &quot;Yes&quot;: cout &lt;&lt; &quot;No&quot;; 
+<a name="l104"><span class="ln">104  </span></a>    return 0; 
+<a name="l105"><span class="ln">105  </span></a>} 
+<a name="l106"><span class="ln">106  </span></a>* */</span><span class="s1"> 
+<a name="l107"><span class="ln">107  </span></a></span><span class="s0">public class </span><span class="s1">CheckIfGivenFourPointsFormASquare { 
+<a name="l108"><span class="ln">108  </span></a> 
+<a name="l109"><span class="ln">109  </span></a>    </span><span class="s2">/* SOLUTION 1 
+<a name="l110"><span class="ln">110  </span></a>Correct 
+<a name="l111"><span class="ln">111  </span></a>Execution Time:0.447*/</span><span class="s1"> 
+<a name="l112"><span class="ln">112  </span></a>    </span><span class="s2">/* 
+<a name="l113"><span class="ln">113  </span></a>public static void main (String[] args) { 
+<a name="l114"><span class="ln">114  </span></a>        //code 
+<a name="l115"><span class="ln">115  </span></a>        int[] a = new int[8]; 
+<a name="l116"><span class="ln">116  </span></a>        int flag1; 
+<a name="l117"><span class="ln">117  </span></a>        int flag2; 
+<a name="l118"><span class="ln">118  </span></a>        int flag3; 
+<a name="l119"><span class="ln">119  </span></a>        Scanner sc = new Scanner(System.in); 
+<a name="l120"><span class="ln">120  </span></a>        int n = sc.nextInt(); 
+<a name="l121"><span class="ln">121  </span></a>        for(int i=0;i&lt;n;i++){flag2 =0;flag1 =0;flag3=0; 
+<a name="l122"><span class="ln">122  </span></a>            for(int j=0;j&lt;8;j++){ 
+<a name="l123"><span class="ln">123  </span></a>                a[j] = sc.nextInt(); 
+<a name="l124"><span class="ln">124  </span></a>            } 
+<a name="l125"><span class="ln">125  </span></a>            for(int j=0;j&lt;8;j+=2){ 
+<a name="l126"><span class="ln">126  </span></a>                if(a[j]!=a[j+1]){ 
+<a name="l127"><span class="ln">127  </span></a>                    for(int k=0;k&lt;8;k+=2){ 
+<a name="l128"><span class="ln">128  </span></a>                        if(a[k]==a[k+1] &amp;&amp; (a[k] == a[j] || a[k] == a[j+1])){ 
+<a name="l129"><span class="ln">129  </span></a>                            flag1++; 
+<a name="l130"><span class="ln">130  </span></a>                        } 
+<a name="l131"><span class="ln">131  </span></a>                    } 
+<a name="l132"><span class="ln">132  </span></a>                    for(int k=0;k&lt;8;k+=2){ 
+<a name="l133"><span class="ln">133  </span></a>                        if(a[k]==a[j+1] &amp;&amp; a[k+1]==a[j]){ 
+<a name="l134"><span class="ln">134  </span></a>                            flag2++; 
+<a name="l135"><span class="ln">135  </span></a>                        } 
+<a name="l136"><span class="ln">136  </span></a>                    } 
+<a name="l137"><span class="ln">137  </span></a>                    flag3=1; 
+<a name="l138"><span class="ln">138  </span></a>                    if(flag1 == 2 &amp;&amp; flag2 ==1){System.out.println(1);} 
+<a name="l139"><span class="ln">139  </span></a>                    else System.out.println(0); 
+<a name="l140"><span class="ln">140  </span></a>                    break; 
+<a name="l141"><span class="ln">141  </span></a>                } 
+<a name="l142"><span class="ln">142  </span></a>            } 
+<a name="l143"><span class="ln">143  </span></a>            if(flag1 == 0 &amp;&amp; flag2 ==0 &amp;&amp;flag3==0){System.out.println(0);} 
+<a name="l144"><span class="ln">144  </span></a>        } 
+<a name="l145"><span class="ln">145  </span></a>    } 
+<a name="l146"><span class="ln">146  </span></a>*/</span><span class="s1"> 
+<a name="l147"><span class="ln">147  </span></a>        </span><span class="s2">// ----------------------------------------------------------------------------------</span><span class="s1"> 
+<a name="l148"><span class="ln">148  </span></a>    </span><span class="s2">/* SOLUTION 2 
+<a name="l149"><span class="ln">149  </span></a>    * 0.71 eXECUTION TIME 
+<a name="l150"><span class="ln">150  </span></a>    * / 
+<a name="l151"><span class="ln">151  </span></a> /*   public static void main (String[] args) { 
+<a name="l152"><span class="ln">152  </span></a>        Scanner sc = new Scanner(System.in); 
+<a name="l153"><span class="ln">153  </span></a>        //code 
+<a name="l154"><span class="ln">154  </span></a>        int t =sc.nextInt(); 
+<a name="l155"><span class="ln">155  </span></a>        Point[] p = new Point[4]; 
+<a name="l156"><span class="ln">156  </span></a>        for(int i=0;i&lt;t;i++){ 
+<a name="l157"><span class="ln">157  </span></a>            for(int j=0;j&lt;4;j++){ 
+<a name="l158"><span class="ln">158  </span></a>                int x = sc.nextInt(); 
+<a name="l159"><span class="ln">159  </span></a>                int y = sc.nextInt(); 
+<a name="l160"><span class="ln">160  </span></a>                p[j] = new Point(x,y); 
+<a name="l161"><span class="ln">161  </span></a>            } 
+<a name="l162"><span class="ln">162  </span></a>            checkIfSquareOrNot(p); 
+<a name="l163"><span class="ln">163  </span></a>        } 
+<a name="l164"><span class="ln">164  </span></a>    } 
+<a name="l165"><span class="ln">165  </span></a>    private static class Point{ 
+<a name="l166"><span class="ln">166  </span></a>        int x; 
+<a name="l167"><span class="ln">167  </span></a>        int y; 
+<a name="l168"><span class="ln">168  </span></a>        public Point(int x, int y){ 
+<a name="l169"><span class="ln">169  </span></a>            this.x=x; 
+<a name="l170"><span class="ln">170  </span></a>            this.y=y; 
+<a name="l171"><span class="ln">171  </span></a>        } 
+<a name="l172"><span class="ln">172  </span></a>    } 
+<a name="l173"><span class="ln">173  </span></a> 
+<a name="l174"><span class="ln">174  </span></a>    public static void checkIfSquareOrNot(Point[] p){ 
+<a name="l175"><span class="ln">175  </span></a>        double[] dist = new double[3]; 
+<a name="l176"><span class="ln">176  </span></a>        boolean flag=false; 
+<a name="l177"><span class="ln">177  </span></a>        Point p1 = p[0]; 
+<a name="l178"><span class="ln">178  </span></a>        for(int i = 1;i&lt;4;i++){ 
+<a name="l179"><span class="ln">179  </span></a>            int result = (int)Math.pow(p1.x-p[i].x,2) + (int) Math.pow(p1.y-p[i].y,2); 
+<a name="l180"><span class="ln">180  </span></a>            dist[i-1] = Math.sqrt(result); 
+<a name="l181"><span class="ln">181  </span></a>        } 
+<a name="l182"><span class="ln">182  </span></a> 
+<a name="l183"><span class="ln">183  </span></a>        if(dist[0]==dist[1]){ 
+<a name="l184"><span class="ln">184  </span></a>            int third = (int) Math.pow(dist[0],2) + (int) Math.pow(dist[1],2); 
+<a name="l185"><span class="ln">185  </span></a>            if(Math.sqrt(third)==dist[2]){ 
+<a name="l186"><span class="ln">186  </span></a>                flag=true; 
+<a name="l187"><span class="ln">187  </span></a>            } 
+<a name="l188"><span class="ln">188  </span></a>        } 
+<a name="l189"><span class="ln">189  </span></a>        if(dist[1]==dist[2]){ 
+<a name="l190"><span class="ln">190  </span></a>            if(flag==false){ 
+<a name="l191"><span class="ln">191  </span></a>                int third = (int) Math.pow(dist[1],2) + (int) Math.pow(dist[2],2); 
+<a name="l192"><span class="ln">192  </span></a>                if(Math.sqrt(third)==dist[0]){ 
+<a name="l193"><span class="ln">193  </span></a>                    flag=true; 
+<a name="l194"><span class="ln">194  </span></a>                } 
+<a name="l195"><span class="ln">195  </span></a>            } 
+<a name="l196"><span class="ln">196  </span></a>        } 
+<a name="l197"><span class="ln">197  </span></a>        if(dist[0]==dist[2]){ 
+<a name="l198"><span class="ln">198  </span></a>            if(flag==false){ 
+<a name="l199"><span class="ln">199  </span></a>                int third = (int) Math.pow(dist[0],2) + (int) Math.pow(dist[2],2); 
+<a name="l200"><span class="ln">200  </span></a>                if(Math.sqrt(third)==dist[1]){ 
+<a name="l201"><span class="ln">201  </span></a>                    flag=true; 
+<a name="l202"><span class="ln">202  </span></a>                } 
+<a name="l203"><span class="ln">203  </span></a>            } 
+<a name="l204"><span class="ln">204  </span></a>        } 
+<a name="l205"><span class="ln">205  </span></a>        if(flag){ 
+<a name="l206"><span class="ln">206  </span></a>            System.out.println(&quot;1&quot;); 
+<a name="l207"><span class="ln">207  </span></a>        }else{ 
+<a name="l208"><span class="ln">208  </span></a>            System.out.println(&quot;0&quot;); 
+<a name="l209"><span class="ln">209  </span></a>        } 
+<a name="l210"><span class="ln">210  </span></a>    }*/</span><span class="s1"> 
+<a name="l211"><span class="ln">211  </span></a>    </span><span class="s2">//---------------------------------------------------------------------------------------------------------</span><span class="s1"> 
+<a name="l212"><span class="ln">212  </span></a>    </span><span class="s2">/* 
+<a name="l213"><span class="ln">213  </span></a>    * SOLUTION 3 
+<a name="l214"><span class="ln">214  </span></a>    * Correct 
+<a name="l215"><span class="ln">215  </span></a>Execution Time:0.971 
+<a name="l216"><span class="ln">216  </span></a>    * */</span><span class="s1"> 
+<a name="l217"><span class="ln">217  </span></a></span><span class="s2">/* 
+<a name="l218"><span class="ln">218  </span></a> 
+<a name="l219"><span class="ln">219  </span></a>    public static void main (String[] args) { 
+<a name="l220"><span class="ln">220  </span></a>        Scanner in = new Scanner(System.in); 
+<a name="l221"><span class="ln">221  </span></a>        int numTestCases = Integer.parseInt(in.nextLine()); 
+<a name="l222"><span class="ln">222  </span></a> 
+<a name="l223"><span class="ln">223  </span></a>        for(int i=0; i&lt;numTestCases;i++) { 
+<a name="l224"><span class="ln">224  </span></a>            String testCase = in.nextLine(); 
+<a name="l225"><span class="ln">225  </span></a>            System.out.println(isSquare(parseTestCase(testCase))); 
+<a name="l226"><span class="ln">226  </span></a>        } 
+<a name="l227"><span class="ln">227  </span></a>    } 
+<a name="l228"><span class="ln">228  </span></a> 
+<a name="l229"><span class="ln">229  </span></a>    private static ArrayList&lt;Point&gt; parseTestCase(String testCase) { 
+<a name="l230"><span class="ln">230  </span></a> 
+<a name="l231"><span class="ln">231  </span></a>        ArrayList&lt;Point&gt; points = new ArrayList&lt;&gt;(); 
+<a name="l232"><span class="ln">232  </span></a>        String [] testString = testCase.split(&quot; &quot;); 
+<a name="l233"><span class="ln">233  </span></a> 
+<a name="l234"><span class="ln">234  </span></a>        for(int i=0; i&lt;testString.length-1;i+=2) { 
+<a name="l235"><span class="ln">235  </span></a>            int x = Integer.parseInt(testString[i]); 
+<a name="l236"><span class="ln">236  </span></a>            int y = Integer.parseInt(testString[i+1]); 
+<a name="l237"><span class="ln">237  </span></a>            points.add(new Point(x,y)); 
+<a name="l238"><span class="ln">238  </span></a>        } 
+<a name="l239"><span class="ln">239  </span></a> 
+<a name="l240"><span class="ln">240  </span></a>        return points; 
+<a name="l241"><span class="ln">241  </span></a>    } 
+<a name="l242"><span class="ln">242  </span></a> 
+<a name="l243"><span class="ln">243  </span></a>    private static int isSquare(ArrayList&lt;Point&gt; points) { 
+<a name="l244"><span class="ln">244  </span></a> 
+<a name="l245"><span class="ln">245  </span></a>        Collections.sort(points, new Comparator&lt;Point&gt;() { 
+<a name="l246"><span class="ln">246  </span></a>            public int compare(Point a, Point b) { 
+<a name="l247"><span class="ln">247  </span></a>                return (a.x-b.x)+(a.y-b.y); 
+<a name="l248"><span class="ln">248  </span></a>            } 
+<a name="l249"><span class="ln">249  </span></a>        }); 
+<a name="l250"><span class="ln">250  </span></a> 
+<a name="l251"><span class="ln">251  </span></a>        Point a = points.get(0); 
+<a name="l252"><span class="ln">252  </span></a>        Point b = points.get(1); 
+<a name="l253"><span class="ln">253  </span></a>        Point c = points.get(2); 
+<a name="l254"><span class="ln">254  </span></a>        Point d = points.get(3); 
+<a name="l255"><span class="ln">255  </span></a> 
+<a name="l256"><span class="ln">256  </span></a> 
+<a name="l257"><span class="ln">257  </span></a>        int disAB = a.distTo(b); 
+<a name="l258"><span class="ln">258  </span></a>        int disAC = a.distTo(c); 
+<a name="l259"><span class="ln">259  </span></a>        int disAD = a.distTo(d); 
+<a name="l260"><span class="ln">260  </span></a> 
+<a name="l261"><span class="ln">261  </span></a> 
+<a name="l262"><span class="ln">262  </span></a>        //First Angle ABC 
+<a name="l263"><span class="ln">263  </span></a>        Point ab = new Point(b.x-a.x,b.y-a.y); 
+<a name="l264"><span class="ln">264  </span></a>        Point ac = new Point(a.x-c.x,a.y-c.y); 
+<a name="l265"><span class="ln">265  </span></a> 
+<a name="l266"><span class="ln">266  </span></a>        double angleAB = Math.atan2(ab.y, ab.x); 
+<a name="l267"><span class="ln">267  </span></a>        double angleAC = Math.atan2(ac.y, ac.x); 
+<a name="l268"><span class="ln">268  </span></a>        double angleRes = angleAB - angleAC; 
+<a name="l269"><span class="ln">269  </span></a>        double angleABC = (angleRes * 180) / Math.PI; 
+<a name="l270"><span class="ln">270  </span></a> 
+<a name="l271"><span class="ln">271  </span></a>        //Second Angle DCB 
+<a name="l272"><span class="ln">272  </span></a>        Point dc = new Point(d.x-c.x,d.y-c.y); 
+<a name="l273"><span class="ln">273  </span></a>        Point db = new Point(d.x-b.x,d.y-b.y); 
+<a name="l274"><span class="ln">274  </span></a> 
+<a name="l275"><span class="ln">275  </span></a>        double angleDC = Math.atan2(dc.y, dc.x); 
+<a name="l276"><span class="ln">276  </span></a>        double angleDB = Math.atan2(db.y, db.x); 
+<a name="l277"><span class="ln">277  </span></a>        double angleResDCB = angleDC - angleDB; 
+<a name="l278"><span class="ln">278  </span></a>        double angleDCB = (angleResDCB * 180) / Math.PI; 
+<a name="l279"><span class="ln">279  </span></a> 
+<a name="l280"><span class="ln">280  </span></a> 
+<a name="l281"><span class="ln">281  </span></a>        if(Double.compare(Math.abs(angleABC),90.0) != 0  || Double.compare(Math.abs(angleDCB),90.0) != 0) 
+<a name="l282"><span class="ln">282  </span></a>            return 0; 
+<a name="l283"><span class="ln">283  </span></a>        else if(disAB == disAC &amp;&amp; 2*disAB == disAD) 
+<a name="l284"><span class="ln">284  </span></a>            return 1; 
+<a name="l285"><span class="ln">285  </span></a> 
+<a name="l286"><span class="ln">286  </span></a>        return 0; 
+<a name="l287"><span class="ln">287  </span></a>    } 
+<a name="l288"><span class="ln">288  </span></a> 
+<a name="l289"><span class="ln">289  </span></a> 
+<a name="l290"><span class="ln">290  </span></a>    private static class Point { 
+<a name="l291"><span class="ln">291  </span></a>        int x; 
+<a name="l292"><span class="ln">292  </span></a>        int y; 
+<a name="l293"><span class="ln">293  </span></a>        public Point(int x, int y) { 
+<a name="l294"><span class="ln">294  </span></a>            this.x = x; 
+<a name="l295"><span class="ln">295  </span></a>            this.y = y; 
+<a name="l296"><span class="ln">296  </span></a>        } 
+<a name="l297"><span class="ln">297  </span></a> 
+<a name="l298"><span class="ln">298  </span></a>        public int distTo(Point a) { 
+<a name="l299"><span class="ln">299  </span></a>            int x2 = a.x; 
+<a name="l300"><span class="ln">300  </span></a>            int y2 = a.y; 
+<a name="l301"><span class="ln">301  </span></a>            int dx = (x2-this.x)*(x2-this.x); 
+<a name="l302"><span class="ln">302  </span></a>            int dy = (y2-this.y)*(y2-this.y); 
+<a name="l303"><span class="ln">303  </span></a>            return dx+dy; 
+<a name="l304"><span class="ln">304  </span></a>        } 
+<a name="l305"><span class="ln">305  </span></a> 
+<a name="l306"><span class="ln">306  </span></a>        public String toString() { 
+<a name="l307"><span class="ln">307  </span></a>            return &quot;(&quot;+x+&quot;,&quot;+y+&quot;)&quot;; 
+<a name="l308"><span class="ln">308  </span></a>        } 
+<a name="l309"><span class="ln">309  </span></a>    } 
+<a name="l310"><span class="ln">310  </span></a>*/</span><span class="s1"> 
+<a name="l311"><span class="ln">311  </span></a>    </span><span class="s2">//---------------------------------------------------------------------------------------------------------</span><span class="s1"> 
+<a name="l312"><span class="ln">312  </span></a>    </span><span class="s2">/* 
+<a name="l313"><span class="ln">313  </span></a>    * SOLUTION 4 
+<a name="l314"><span class="ln">314  </span></a>    * Correct 
+<a name="l315"><span class="ln">315  </span></a>Execution Time:0.434 
+<a name="l316"><span class="ln">316  </span></a>    * */</span><span class="s1"> 
+<a name="l317"><span class="ln">317  </span></a>    </span><span class="s2">/*public static void main (String[] args) { 
+<a name="l318"><span class="ln">318  </span></a> 
+<a name="l319"><span class="ln">319  </span></a> 
+<a name="l320"><span class="ln">320  </span></a>        Scanner obj=new Scanner(System.in); 
+<a name="l321"><span class="ln">321  </span></a>        int t=obj.nextInt(); 
+<a name="l322"><span class="ln">322  </span></a> 
+<a name="l323"><span class="ln">323  </span></a>        while(t&gt;=1) 
+<a name="l324"><span class="ln">324  </span></a>        { 
+<a name="l325"><span class="ln">325  </span></a> 
+<a name="l326"><span class="ln">326  </span></a>            int x[]=new int[4]; 
+<a name="l327"><span class="ln">327  </span></a>            int y[]=new int[4]; 
+<a name="l328"><span class="ln">328  </span></a> 
+<a name="l329"><span class="ln">329  </span></a>        *//* 
+<a name="l330"><span class="ln">330  </span></a>        for(int i=0;i&lt;4;i++) 
+<a name="l331"><span class="ln">331  </span></a>        { 
+<a name="l332"><span class="ln">332  </span></a>            x[i]=obj.nextInt(); 
+<a name="l333"><span class="ln">333  </span></a>            y[i]=obj.nextInt(); 
+<a name="l334"><span class="ln">334  </span></a>        } 
+<a name="l335"><span class="ln">335  </span></a> 
+<a name="l336"><span class="ln">336  </span></a>        double d1=Math.sqrt(((x[2]-x[0])*(x[2]-x[0]))+((y[2]-y[0])*(y[2]-y[0]))); 
+<a name="l337"><span class="ln">337  </span></a>        double d2=Math.sqrt(((x[1]-x[3])*(x[1]-x[3]))+((y[1]-y[3])*(y[1]-y[3]))); 
+<a name="l338"><span class="ln">338  </span></a> 
+<a name="l339"><span class="ln">339  </span></a>        if(d1==d2) 
+<a name="l340"><span class="ln">340  </span></a>            System.out.println(1); 
+<a name="l341"><span class="ln">341  </span></a> 
+<a name="l342"><span class="ln">342  </span></a>        else 
+<a name="l343"><span class="ln">343  </span></a>            System.out.println(0); 
+<a name="l344"><span class="ln">344  </span></a> 
+<a name="l345"><span class="ln">345  </span></a>            *//* 
+<a name="l346"><span class="ln">346  </span></a> 
+<a name="l347"><span class="ln">347  </span></a>            //second method 
+<a name="l348"><span class="ln">348  </span></a> 
+<a name="l349"><span class="ln">349  </span></a>            for(int i=0;i&lt;4;i++) 
+<a name="l350"><span class="ln">350  </span></a>            { 
+<a name="l351"><span class="ln">351  </span></a>                x[i]=obj.nextInt(); 
+<a name="l352"><span class="ln">352  </span></a>                y[i]=obj.nextInt(); 
+<a name="l353"><span class="ln">353  </span></a>            } 
+<a name="l354"><span class="ln">354  </span></a> 
+<a name="l355"><span class="ln">355  </span></a>            double a=getdistance(x[0],y[0],x[1],y[1]); 
+<a name="l356"><span class="ln">356  </span></a>            double b=getdistance(x[0],y[0],x[2],y[2]); 
+<a name="l357"><span class="ln">357  </span></a>            double c=getdistance(x[0],y[0],x[3],y[3]); 
+<a name="l358"><span class="ln">358  </span></a> 
+<a name="l359"><span class="ln">359  </span></a> 
+<a name="l360"><span class="ln">360  </span></a>            if(b==a*2&amp;&amp;a==c) 
+<a name="l361"><span class="ln">361  </span></a>            { 
+<a name="l362"><span class="ln">362  </span></a>                if(getdistance(x[2],y[2],x[1],y[1])==getdistance(x[2],y[2],x[3],y[3])) 
+<a name="l363"><span class="ln">363  </span></a>                    System.out.println(1); 
+<a name="l364"><span class="ln">364  </span></a>                else 
+<a name="l365"><span class="ln">365  </span></a>                    System.out.println(0); 
+<a name="l366"><span class="ln">366  </span></a>            } 
+<a name="l367"><span class="ln">367  </span></a> 
+<a name="l368"><span class="ln">368  </span></a>            else if(a==b*2&amp;&amp;b==c) 
+<a name="l369"><span class="ln">369  </span></a> 
+<a name="l370"><span class="ln">370  </span></a>            { 
+<a name="l371"><span class="ln">371  </span></a> 
+<a name="l372"><span class="ln">372  </span></a> 
+<a name="l373"><span class="ln">373  </span></a>                if(getdistance(x[1],y[1],x[2],y[2])==getdistance(x[1],y[1],x[2],y[2])) 
+<a name="l374"><span class="ln">374  </span></a>                    System.out.println(1); 
+<a name="l375"><span class="ln">375  </span></a>                else 
+<a name="l376"><span class="ln">376  </span></a>                    System.out.println(0); 
+<a name="l377"><span class="ln">377  </span></a> 
+<a name="l378"><span class="ln">378  </span></a> 
+<a name="l379"><span class="ln">379  </span></a>            } 
+<a name="l380"><span class="ln">380  </span></a> 
+<a name="l381"><span class="ln">381  </span></a>            else if(c==a*2&amp;&amp;b==a) 
+<a name="l382"><span class="ln">382  </span></a>            { 
+<a name="l383"><span class="ln">383  </span></a>                if(getdistance(x[3],y[3],x[1],y[1])==getdistance(x[2],y[2],x[3],y[3])) 
+<a name="l384"><span class="ln">384  </span></a>                    System.out.println(1); 
+<a name="l385"><span class="ln">385  </span></a>                else 
+<a name="l386"><span class="ln">386  </span></a>                    System.out.println(0); 
+<a name="l387"><span class="ln">387  </span></a> 
+<a name="l388"><span class="ln">388  </span></a> 
+<a name="l389"><span class="ln">389  </span></a>            } 
+<a name="l390"><span class="ln">390  </span></a> 
+<a name="l391"><span class="ln">391  </span></a>            else 
+<a name="l392"><span class="ln">392  </span></a>                System.out.println(0); 
+<a name="l393"><span class="ln">393  </span></a> 
+<a name="l394"><span class="ln">394  </span></a>            t--; 
+<a name="l395"><span class="ln">395  </span></a>        } 
+<a name="l396"><span class="ln">396  </span></a> 
+<a name="l397"><span class="ln">397  </span></a> 
+<a name="l398"><span class="ln">398  </span></a> 
+<a name="l399"><span class="ln">399  </span></a>    } 
+<a name="l400"><span class="ln">400  </span></a> 
+<a name="l401"><span class="ln">401  </span></a>    static double getdistance(int x1,int y1,int x2,int y2) 
+<a name="l402"><span class="ln">402  </span></a>    { 
+<a name="l403"><span class="ln">403  </span></a>        double x=Math.abs(x1-x2); 
+<a name="l404"><span class="ln">404  </span></a>        x*=x; 
+<a name="l405"><span class="ln">405  </span></a> 
+<a name="l406"><span class="ln">406  </span></a>        double y=Math.abs(y2-y1); 
+<a name="l407"><span class="ln">407  </span></a>        y*=y; 
+<a name="l408"><span class="ln">408  </span></a> 
+<a name="l409"><span class="ln">409  </span></a>        return (x+y); 
+<a name="l410"><span class="ln">410  </span></a> 
+<a name="l411"><span class="ln">411  </span></a> 
+<a name="l412"><span class="ln">412  </span></a> 
+<a name="l413"><span class="ln">413  </span></a>    } 
+<a name="l414"><span class="ln">414  </span></a>*/</span><span class="s1"> 
+<a name="l415"><span class="ln">415  </span></a></span><span class="s2">//---------------------------------------------------------------------------------------------------------</span><span class="s1"> 
+<a name="l416"><span class="ln">416  </span></a>    </span><span class="s2">/* 
+<a name="l417"><span class="ln">417  </span></a>    * SOLUTION 5 
+<a name="l418"><span class="ln">418  </span></a>    * Correct 
+<a name="l419"><span class="ln">419  </span></a>Execution Time:0.463 
+<a name="l420"><span class="ln">420  </span></a>    * */</span><span class="s1"> 
+<a name="l421"><span class="ln">421  </span></a> 
+<a name="l422"><span class="ln">422  </span></a> 
+<a name="l423"><span class="ln">423  </span></a></span><span class="s2">//---------------------------------------------------------------------------------------------------------</span><span class="s1"> 
+<a name="l424"><span class="ln">424  </span></a> 
+<a name="l425"><span class="ln">425  </span></a>} 
+<a name="l426"><span class="ln">426  </span></a> 
+<a name="l427"><span class="ln">427  </span></a></span></pre>
+</body>
+</html>

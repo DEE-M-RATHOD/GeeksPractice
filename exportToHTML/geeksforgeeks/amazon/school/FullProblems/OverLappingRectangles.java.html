@@ -1,0 +1,319 @@
+<html>
+<head>
+<title>OverLappingRectangles.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: #999999; font-weight: normal; font-style: normal; }
+.s0 { color: rgb(0,0,128); font-weight: bold; }
+.s1 { color: rgb(0,0,0); }
+.s2 { color: rgb(128,128,128); font-style: italic; }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+OverLappingRectangles.java</FONT>
+</center></TD></TR></TABLE>
+<pre>
+<a name="l1"><span class="ln">1    </span></a><span class="s0">package </span><span class="s1">geeksforgeeks.amazon.school.FullProblems; 
+<a name="l2"><span class="ln">2    </span></a> 
+<a name="l3"><span class="ln">3    </span></a></span><span class="s0">import </span><span class="s1">java.util.Scanner; 
+<a name="l4"><span class="ln">4    </span></a> 
+<a name="l5"><span class="ln">5    </span></a></span><span class="s2">/** 
+<a name="l6"><span class="ln">6    </span></a> * Created by erdee on 31-01-2017. 
+<a name="l7"><span class="ln">7    </span></a> */</span><span class="s1"> 
+<a name="l8"><span class="ln">8    </span></a> 
+<a name="l9"><span class="ln">9    </span></a></span><span class="s2">/* 
+<a name="l10"><span class="ln">10   </span></a>* 
+<a name="l11"><span class="ln">11   </span></a>* Geometic , Maths 
+<a name="l12"><span class="ln">12   </span></a> Microsoft , Goldman Sachs , Expedia, Amazon, OATS Systems 
+<a name="l13"><span class="ln">13   </span></a>* */</span><span class="s1"> 
+<a name="l14"><span class="ln">14   </span></a> 
+<a name="l15"><span class="ln">15   </span></a></span><span class="s2">/* 
+<a name="l16"><span class="ln">16   </span></a>*Given two rectangles, find if the given two rectangles overlap or not. A rectangle is denoted by providing the x and y co-ordinates of two points: the left top corner and the right bottom corner of the rectangle. 
+<a name="l17"><span class="ln">17   </span></a> 
+<a name="l18"><span class="ln">18   </span></a>Note that two rectangles sharing a side are considered overlapping. 
+<a name="l19"><span class="ln">19   </span></a> 
+<a name="l20"><span class="ln">20   </span></a>Input: 
+<a name="l21"><span class="ln">21   </span></a> 
+<a name="l22"><span class="ln">22   </span></a>The first integer T denotes the number of test cases. For every test case, there are 2 lines of input. The first line consists of 4 integers: denoting the co-ordinates of the 2 points of the first rectangle. The first integer denotes the x co-ordinate and the second integer denotes the y co-ordinate of the left topmost corner of the first rectangle. The next two integers are the x and y co-ordinates of right bottom corner. Similarly, the second line denotes the cordinates of the two points of the second rectangle. 
+<a name="l23"><span class="ln">23   </span></a> 
+<a name="l24"><span class="ln">24   </span></a>Output: 
+<a name="l25"><span class="ln">25   </span></a> 
+<a name="l26"><span class="ln">26   </span></a>For each test case, output (either 1 or 0) denoting whether the 2 rectangles are overlapping. 1 denotes the rectangles overlap whereas 0 denotes the rectangles do not overlap. 
+<a name="l27"><span class="ln">27   </span></a> 
+<a name="l28"><span class="ln">28   </span></a>Constraints: 
+<a name="l29"><span class="ln">29   </span></a>1 &lt;= T &lt;= 10 
+<a name="l30"><span class="ln">30   </span></a>-10000 &lt;= x,y &lt;= 10000 
+<a name="l31"><span class="ln">31   </span></a> 
+<a name="l32"><span class="ln">32   </span></a>T denotes the number of test cases. x denotes the x co-ordinate and y denotes the y co-ordinate. 
+<a name="l33"><span class="ln">33   </span></a> 
+<a name="l34"><span class="ln">34   </span></a>Example: 
+<a name="l35"><span class="ln">35   </span></a> 
+<a name="l36"><span class="ln">36   </span></a>Input: 
+<a name="l37"><span class="ln">37   </span></a> 
+<a name="l38"><span class="ln">38   </span></a>2 
+<a name="l39"><span class="ln">39   </span></a>0 10 10 0 
+<a name="l40"><span class="ln">40   </span></a>5 5 15 0 
+<a name="l41"><span class="ln">41   </span></a>0 2 1 1 
+<a name="l42"><span class="ln">42   </span></a>-2 -3 0 2 
+<a name="l43"><span class="ln">43   </span></a> 
+<a name="l44"><span class="ln">44   </span></a>Output: 
+<a name="l45"><span class="ln">45   </span></a> 
+<a name="l46"><span class="ln">46   </span></a>1 
+<a name="l47"><span class="ln">47   </span></a>0 
+<a name="l48"><span class="ln">48   </span></a> *  */</span><span class="s1"> 
+<a name="l49"><span class="ln">49   </span></a></span><span class="s2">/* 
+<a name="l50"><span class="ln">50   </span></a>* Given two rectangles, find if the given two rectangles overlap or not. 
+<a name="l51"><span class="ln">51   </span></a> 
+<a name="l52"><span class="ln">52   </span></a>Note that a rectangle can be represented by two coordinates, top left and bottom right. So mainly we are given following four coordinates. 
+<a name="l53"><span class="ln">53   </span></a>l1: Top Left coordinate of first rectangle. 
+<a name="l54"><span class="ln">54   </span></a>r1: Bottom Right coordinate of first rectangle. 
+<a name="l55"><span class="ln">55   </span></a>l2: Top Left coordinate of second rectangle. 
+<a name="l56"><span class="ln">56   </span></a>r2: Bottom Right coordinate of second rectangle. 
+<a name="l57"><span class="ln">57   </span></a> 
+<a name="l58"><span class="ln">58   </span></a>rectanglesOverlap 
+<a name="l59"><span class="ln">59   </span></a> 
+<a name="l60"><span class="ln">60   </span></a>We need to write a function bool doOverlap(l1, r1, l2, r2) that returns true if the two given rectangles overlap. 
+<a name="l61"><span class="ln">61   </span></a> 
+<a name="l62"><span class="ln">62   </span></a>One solution is to one by one pick all points of one rectangle and see if the point lies inside the other rectangle or not. This can be done using the algorithm discussed here. 
+<a name="l63"><span class="ln">63   </span></a>Following is a simpler approach. Two rectangles do not overlap if one of the following conditions is true. 
+<a name="l64"><span class="ln">64   </span></a>1) One rectangle is above top edge of other rectangle. 
+<a name="l65"><span class="ln">65   </span></a>2) One rectangle is on left side of left edge of other rectangle.*/</span><span class="s1"> 
+<a name="l66"><span class="ln">66   </span></a></span><span class="s2">/* 
+<a name="l67"><span class="ln">67   </span></a>* 
+<a name="l68"><span class="ln">68   </span></a>* #include&lt;bits/stdc++.h&gt; 
+<a name="l69"><span class="ln">69   </span></a> 
+<a name="l70"><span class="ln">70   </span></a>struct Point 
+<a name="l71"><span class="ln">71   </span></a>{ 
+<a name="l72"><span class="ln">72   </span></a>    int x, y; 
+<a name="l73"><span class="ln">73   </span></a>}; 
+<a name="l74"><span class="ln">74   </span></a> 
+<a name="l75"><span class="ln">75   </span></a>// Returns true if two rectangles (l1, r1) and (l2, r2) overlap 
+<a name="l76"><span class="ln">76   </span></a>bool doOverlap(Point l1, Point r1, Point l2, Point r2) 
+<a name="l77"><span class="ln">77   </span></a>{ 
+<a name="l78"><span class="ln">78   </span></a>    // If one rectangle is on left side of other 
+<a name="l79"><span class="ln">79   </span></a>    if (l1.x &gt; r2.x || l2.x &gt; r1.x) 
+<a name="l80"><span class="ln">80   </span></a>        return false; 
+<a name="l81"><span class="ln">81   </span></a> 
+<a name="l82"><span class="ln">82   </span></a>    // If one rectangle is above other 
+<a name="l83"><span class="ln">83   </span></a>    if (l1.y &lt; r2.y || l2.y &lt; r1.y) 
+<a name="l84"><span class="ln">84   </span></a>        return false; 
+<a name="l85"><span class="ln">85   </span></a> 
+<a name="l86"><span class="ln">86   </span></a>    return true; 
+<a name="l87"><span class="ln">87   </span></a>} 
+<a name="l88"><span class="ln">88   </span></a> 
+<a name="l89"><span class="ln">89   </span></a>/* Driver program to test above function */</span><span class="s1"> 
+<a name="l90"><span class="ln">90   </span></a></span><span class="s2">/*int main() 
+<a name="l91"><span class="ln">91   </span></a>        { 
+<a name="l92"><span class="ln">92   </span></a>        Point l1 = {0, 10}, r1 = {10, 0}; 
+<a name="l93"><span class="ln">93   </span></a>        Point l2 = {5, 5}, r2 = {15, 0}; 
+<a name="l94"><span class="ln">94   </span></a>        if (doOverlap(l1, r1, l2, r2)) 
+<a name="l95"><span class="ln">95   </span></a>        printf(&quot;Rectangles Overlap&quot;); 
+<a name="l96"><span class="ln">96   </span></a>        else 
+<a name="l97"><span class="ln">97   </span></a>        printf(&quot;Rectangles Don't Overlap&quot;); 
+<a name="l98"><span class="ln">98   </span></a>        return 0; 
+<a name="l99"><span class="ln">99   </span></a>        } 
+<a name="l100"><span class="ln">100  </span></a>* */</span><span class="s1"> 
+<a name="l101"><span class="ln">101  </span></a> 
+<a name="l102"><span class="ln">102  </span></a></span><span class="s0">public class </span><span class="s1">OverLappingRectangles { 
+<a name="l103"><span class="ln">103  </span></a>   </span><span class="s2">/* SOLUTION 1 
+<a name="l104"><span class="ln">104  </span></a>Correct 
+<a name="l105"><span class="ln">105  </span></a>Execution Time:0.434*/</span><span class="s1"> 
+<a name="l106"><span class="ln">106  </span></a></span><span class="s2">/*   public static void main(String args[]) { 
+<a name="l107"><span class="ln">107  </span></a>       Scanner sc = new Scanner(System.in); 
+<a name="l108"><span class="ln">108  </span></a>       int T = sc.nextInt(); 
+<a name="l109"><span class="ln">109  </span></a> 
+<a name="l110"><span class="ln">110  </span></a>       for(int i=0;i&lt;T;i++){ 
+<a name="l111"><span class="ln">111  </span></a>           int x1=sc.nextInt(); 
+<a name="l112"><span class="ln">112  </span></a>           int y1=sc.nextInt(); 
+<a name="l113"><span class="ln">113  </span></a>           int x2=sc.nextInt(); 
+<a name="l114"><span class="ln">114  </span></a>           int y2=sc.nextInt(); 
+<a name="l115"><span class="ln">115  </span></a>           int x3=sc.nextInt(); 
+<a name="l116"><span class="ln">116  </span></a>           int y3=sc.nextInt(); 
+<a name="l117"><span class="ln">117  </span></a>           int x4=sc.nextInt(); 
+<a name="l118"><span class="ln">118  </span></a>           int y4=sc.nextInt(); 
+<a name="l119"><span class="ln">119  </span></a>           if(((y1-y3)&gt;=(y1-y2))||(y3-y1)&gt;=(y3-y4)||(x1-x2)&gt;=(x4-x3)||(x3-x1)&gt;=(x2-x1)){ 
+<a name="l120"><span class="ln">120  </span></a>               System.out.println(&quot;0&quot;); 
+<a name="l121"><span class="ln">121  </span></a> 
+<a name="l122"><span class="ln">122  </span></a>           } 
+<a name="l123"><span class="ln">123  </span></a>           else{ 
+<a name="l124"><span class="ln">124  </span></a>               System.out.println(&quot;1&quot;); 
+<a name="l125"><span class="ln">125  </span></a>           } 
+<a name="l126"><span class="ln">126  </span></a>       } 
+<a name="l127"><span class="ln">127  </span></a> 
+<a name="l128"><span class="ln">128  </span></a>   } 
+<a name="l129"><span class="ln">129  </span></a>   */</span><span class="s1"> 
+<a name="l130"><span class="ln">130  </span></a></span><span class="s2">//---------------------------------------------------------------------------------------</span><span class="s1"> 
+<a name="l131"><span class="ln">131  </span></a> </span><span class="s2">/* SOLUTION 2 
+<a name="l132"><span class="ln">132  </span></a>Correct 
+<a name="l133"><span class="ln">133  </span></a>Execution Time:0.959*/</span><span class="s1"> 
+<a name="l134"><span class="ln">134  </span></a>   </span><span class="s2">/*public static void main (String[] args) { 
+<a name="l135"><span class="ln">135  </span></a>       int T,N; 
+<a name="l136"><span class="ln">136  </span></a>       Point l1,l2,r1,r2; 
+<a name="l137"><span class="ln">137  </span></a> 
+<a name="l138"><span class="ln">138  </span></a>       Scanner sc=new Scanner(System.in); 
+<a name="l139"><span class="ln">139  </span></a>       T=sc.nextInt(); 
+<a name="l140"><span class="ln">140  </span></a> 
+<a name="l141"><span class="ln">141  </span></a>       for(int i=0;i&lt;T;i++){ 
+<a name="l142"><span class="ln">142  </span></a>           l1=new Point(); 
+<a name="l143"><span class="ln">143  </span></a>           l2=new Point(); 
+<a name="l144"><span class="ln">144  </span></a>           r1=new Point(); 
+<a name="l145"><span class="ln">145  </span></a>           r2=new Point(); 
+<a name="l146"><span class="ln">146  </span></a> 
+<a name="l147"><span class="ln">147  </span></a>           l1.x=sc.nextInt(); 
+<a name="l148"><span class="ln">148  </span></a>           l1.y=sc.nextInt(); 
+<a name="l149"><span class="ln">149  </span></a>           r1.x=sc.nextInt(); 
+<a name="l150"><span class="ln">150  </span></a>           r1.y=sc.nextInt(); 
+<a name="l151"><span class="ln">151  </span></a> 
+<a name="l152"><span class="ln">152  </span></a>           l2.x=sc.nextInt(); 
+<a name="l153"><span class="ln">153  </span></a>           l2.y=sc.nextInt(); 
+<a name="l154"><span class="ln">154  </span></a>           r2.x=sc.nextInt(); 
+<a name="l155"><span class="ln">155  </span></a>           r2.y=sc.nextInt(); 
+<a name="l156"><span class="ln">156  </span></a> 
+<a name="l157"><span class="ln">157  </span></a>           System.out.println(isOverlapping(l1,r1,l2,r2)?&quot;1&quot;:&quot;0&quot;); 
+<a name="l158"><span class="ln">158  </span></a>       } 
+<a name="l159"><span class="ln">159  </span></a>   } 
+<a name="l160"><span class="ln">160  </span></a> 
+<a name="l161"><span class="ln">161  </span></a>    public static boolean isOverlapping(Point l1,Point r1,Point l2,Point r2){ 
+<a name="l162"><span class="ln">162  </span></a>        if(r1.x&lt;=l2.x || l1.x&gt;=r2.x) 
+<a name="l163"><span class="ln">163  </span></a>            return false; 
+<a name="l164"><span class="ln">164  </span></a> 
+<a name="l165"><span class="ln">165  </span></a>        if(r1.y&gt;=l2.y || l1.y&lt;=r2.y) 
+<a name="l166"><span class="ln">166  </span></a>            return false; 
+<a name="l167"><span class="ln">167  </span></a> 
+<a name="l168"><span class="ln">168  </span></a>        return true; 
+<a name="l169"><span class="ln">169  </span></a>    } 
+<a name="l170"><span class="ln">170  </span></a> 
+<a name="l171"><span class="ln">171  </span></a>    static class Point{ 
+<a name="l172"><span class="ln">172  </span></a>        int x; 
+<a name="l173"><span class="ln">173  </span></a>        int y; 
+<a name="l174"><span class="ln">174  </span></a>    }*/</span><span class="s1"> 
+<a name="l175"><span class="ln">175  </span></a> 
+<a name="l176"><span class="ln">176  </span></a></span><span class="s2">//---------------------------------------------------------------------------------------</span><span class="s1"> 
+<a name="l177"><span class="ln">177  </span></a> </span><span class="s2">/* SOLUTION 3 
+<a name="l178"><span class="ln">178  </span></a>Correct 
+<a name="l179"><span class="ln">179  </span></a>Execution Time:0.692*/</span><span class="s1"> 
+<a name="l180"><span class="ln">180  </span></a></span><span class="s2">/* 
+<a name="l181"><span class="ln">181  </span></a>static class Node { 
+<a name="l182"><span class="ln">182  </span></a>    int x; 
+<a name="l183"><span class="ln">183  </span></a>    int y; 
+<a name="l184"><span class="ln">184  </span></a>    Node() { 
+<a name="l185"><span class="ln">185  </span></a>        x = 0; 
+<a name="l186"><span class="ln">186  </span></a>        y = 0; 
+<a name="l187"><span class="ln">187  </span></a>    } 
+<a name="l188"><span class="ln">188  </span></a>    Node(int x, int y) { 
+<a name="l189"><span class="ln">189  </span></a>        this.x = x; 
+<a name="l190"><span class="ln">190  </span></a>        this.y = y; 
+<a name="l191"><span class="ln">191  </span></a>    } 
+<a name="l192"><span class="ln">192  </span></a>} 
+<a name="l193"><span class="ln">193  </span></a>    public static void main (String[] args) { 
+<a name="l194"><span class="ln">194  </span></a>        Scanner scanner = new Scanner(System.in); 
+<a name="l195"><span class="ln">195  </span></a>        int size = scanner.nextInt(); 
+<a name="l196"><span class="ln">196  </span></a>        for (int i = 0; i &lt; size; i++) { 
+<a name="l197"><span class="ln">197  </span></a>            Node oneLeftTop = new Node(scanner.nextInt(), scanner.nextInt()); 
+<a name="l198"><span class="ln">198  </span></a>            Node oneRightBottom = new Node(scanner.nextInt(), scanner.nextInt()); 
+<a name="l199"><span class="ln">199  </span></a>            Node twoLeftTop = new Node(scanner.nextInt(), scanner.nextInt()); 
+<a name="l200"><span class="ln">200  </span></a>            Node twoRightBottom = new Node(scanner.nextInt(), scanner.nextInt()); 
+<a name="l201"><span class="ln">201  </span></a>            System.out.println(&quot;&quot; + isOverlap(oneLeftTop, oneRightBottom, twoLeftTop, twoRightBottom)); 
+<a name="l202"><span class="ln">202  </span></a>        } 
+<a name="l203"><span class="ln">203  </span></a>    } 
+<a name="l204"><span class="ln">204  </span></a> 
+<a name="l205"><span class="ln">205  </span></a>    public static int isOverlap(Node oneLeftTop, Node oneRightBottom, Node twoLeftTop, Node twoRightBottom) { 
+<a name="l206"><span class="ln">206  </span></a>        int oneTop = oneLeftTop.y; 
+<a name="l207"><span class="ln">207  </span></a>        int oneLeft = oneLeftTop.x; 
+<a name="l208"><span class="ln">208  </span></a>        int oneRight = oneRightBottom.x; 
+<a name="l209"><span class="ln">209  </span></a>        int oneBottom = oneRightBottom.y; 
+<a name="l210"><span class="ln">210  </span></a>        int twoTop = twoLeftTop.y; 
+<a name="l211"><span class="ln">211  </span></a>        int twoLeft = twoLeftTop.x; 
+<a name="l212"><span class="ln">212  </span></a>        int twoRight = twoRightBottom.x; 
+<a name="l213"><span class="ln">213  </span></a>        int twoBottom = twoRightBottom.y; 
+<a name="l214"><span class="ln">214  </span></a>        if (oneTop &lt;= twoBottom || twoTop &lt;= oneBottom || 
+<a name="l215"><span class="ln">215  </span></a>                oneLeft &gt;= twoRight || oneRight &lt;= twoLeft) { 
+<a name="l216"><span class="ln">216  </span></a>            return 0; 
+<a name="l217"><span class="ln">217  </span></a>        } 
+<a name="l218"><span class="ln">218  </span></a>        return 1; 
+<a name="l219"><span class="ln">219  </span></a>    } 
+<a name="l220"><span class="ln">220  </span></a>*/</span><span class="s1"> 
+<a name="l221"><span class="ln">221  </span></a> 
+<a name="l222"><span class="ln">222  </span></a></span><span class="s2">//---------------------------------------------------------------------------------------</span><span class="s1"> 
+<a name="l223"><span class="ln">223  </span></a> </span><span class="s2">/* SOLUTION 4 
+<a name="l224"><span class="ln">224  </span></a>Correct 
+<a name="l225"><span class="ln">225  </span></a>Execution Time:0.418*/</span><span class="s1"> 
+<a name="l226"><span class="ln">226  </span></a></span><span class="s2">/* 
+<a name="l227"><span class="ln">227  </span></a> 
+<a name="l228"><span class="ln">228  </span></a>    private static int numberOfTestCases, xandyCoordinatesOfLeftTopAndRightBottomOfRectangleOne[], xandyCoordinatesOfLeftTopAndRightBottomOfRectangleTwo[]; 
+<a name="l229"><span class="ln">229  </span></a>    private static int booleanAreRectanglesOverlapping; 
+<a name="l230"><span class="ln">230  </span></a> 
+<a name="l231"><span class="ln">231  </span></a>    private int getIfRectanglesOverlap(int[] xandyCoordinateOfFirst, int[] xandyCoordinateOfSecond) 
+<a name="l232"><span class="ln">232  </span></a>    { 
+<a name="l233"><span class="ln">233  </span></a>        int isOverlapping = 1; 
+<a name="l234"><span class="ln">234  </span></a> 
+<a name="l235"><span class="ln">235  </span></a>        if(xandyCoordinateOfFirst[0] &gt;= xandyCoordinateOfSecond[2] || xandyCoordinateOfSecond[0] &gt;= xandyCoordinateOfFirst[2] || xandyCoordinateOfFirst[3] &gt;= xandyCoordinateOfSecond[1] || xandyCoordinateOfSecond[3] &gt;= xandyCoordinateOfFirst[1]) 
+<a name="l236"><span class="ln">236  </span></a>        { 
+<a name="l237"><span class="ln">237  </span></a>            isOverlapping = 0; 
+<a name="l238"><span class="ln">238  </span></a>        } 
+<a name="l239"><span class="ln">239  </span></a>        return isOverlapping; 
+<a name="l240"><span class="ln">240  </span></a>    } 
+<a name="l241"><span class="ln">241  </span></a> 
+<a name="l242"><span class="ln">242  </span></a>    public static void main(String args[]) 
+<a name="l243"><span class="ln">243  </span></a>    { 
+<a name="l244"><span class="ln">244  </span></a>        OverLappingRectangles gfg = new OverLappingRectangles(); 
+<a name="l245"><span class="ln">245  </span></a>        Scanner sc = new Scanner(System.in); 
+<a name="l246"><span class="ln">246  </span></a>        //System.out.println(&quot;Enter the number of test cases&quot;); 
+<a name="l247"><span class="ln">247  </span></a>        numberOfTestCases = sc.nextInt(); 
+<a name="l248"><span class="ln">248  </span></a> 
+<a name="l249"><span class="ln">249  </span></a>        for(int i = 0; i &lt; numberOfTestCases; i++) 
+<a name="l250"><span class="ln">250  </span></a>        { 
+<a name="l251"><span class="ln">251  </span></a>            // System.out.println(&quot;Enter the x and y coordinates of left top and rightbottom for the first rectangle&quot;); 
+<a name="l252"><span class="ln">252  </span></a> 
+<a name="l253"><span class="ln">253  </span></a>            xandyCoordinatesOfLeftTopAndRightBottomOfRectangleOne = new int[4]; 
+<a name="l254"><span class="ln">254  </span></a>            for(int j = 0; j &lt; 4; j++) 
+<a name="l255"><span class="ln">255  </span></a>            { 
+<a name="l256"><span class="ln">256  </span></a>                xandyCoordinatesOfLeftTopAndRightBottomOfRectangleOne[j] = sc.nextInt(); 
+<a name="l257"><span class="ln">257  </span></a>            } 
+<a name="l258"><span class="ln">258  </span></a> 
+<a name="l259"><span class="ln">259  </span></a>            // System.out.println(&quot;Enter the x and y coordinates of left top and rightbottom for the second rectangle&quot;); 
+<a name="l260"><span class="ln">260  </span></a> 
+<a name="l261"><span class="ln">261  </span></a>            xandyCoordinatesOfLeftTopAndRightBottomOfRectangleTwo = new int[4]; 
+<a name="l262"><span class="ln">262  </span></a>            for(int j = 0; j &lt; 4; j++) 
+<a name="l263"><span class="ln">263  </span></a>            { 
+<a name="l264"><span class="ln">264  </span></a>                xandyCoordinatesOfLeftTopAndRightBottomOfRectangleTwo[j] = sc.nextInt(); 
+<a name="l265"><span class="ln">265  </span></a>            } 
+<a name="l266"><span class="ln">266  </span></a> 
+<a name="l267"><span class="ln">267  </span></a>            booleanAreRectanglesOverlapping = gfg.getIfRectanglesOverlap(xandyCoordinatesOfLeftTopAndRightBottomOfRectangleOne, xandyCoordinatesOfLeftTopAndRightBottomOfRectangleTwo); 
+<a name="l268"><span class="ln">268  </span></a>            System.out.println(booleanAreRectanglesOverlapping); 
+<a name="l269"><span class="ln">269  </span></a>        } 
+<a name="l270"><span class="ln">270  </span></a>    } 
+<a name="l271"><span class="ln">271  </span></a>*/</span><span class="s1"> 
+<a name="l272"><span class="ln">272  </span></a></span><span class="s2">//---------------------------------------------------------------------------------------</span><span class="s1"> 
+<a name="l273"><span class="ln">273  </span></a> </span><span class="s2">/* SOLUTION 5 
+<a name="l274"><span class="ln">274  </span></a>Correct 
+<a name="l275"><span class="ln">275  </span></a>Execution Time:0.433*/</span><span class="s1"> 
+<a name="l276"><span class="ln">276  </span></a></span><span class="s2">/* 
+<a name="l277"><span class="ln">277  </span></a>    public static void main(String[] args) { 
+<a name="l278"><span class="ln">278  </span></a>        Scanner sc = new Scanner(System.in); 
+<a name="l279"><span class="ln">279  </span></a>        int q = sc.nextInt(); 
+<a name="l280"><span class="ln">280  </span></a>        for (int i = 0; i &lt; q; i++) { 
+<a name="l281"><span class="ln">281  </span></a> 
+<a name="l282"><span class="ln">282  </span></a>            int ax = sc.nextInt(); 
+<a name="l283"><span class="ln">283  </span></a>            int ay = sc.nextInt(); 
+<a name="l284"><span class="ln">284  </span></a>            int bx = sc.nextInt(); 
+<a name="l285"><span class="ln">285  </span></a>            int by = sc.nextInt(); 
+<a name="l286"><span class="ln">286  </span></a>            int cx = sc.nextInt(); 
+<a name="l287"><span class="ln">287  </span></a>            int cy = sc.nextInt(); 
+<a name="l288"><span class="ln">288  </span></a>            int dx = sc.nextInt(); 
+<a name="l289"><span class="ln">289  </span></a>            int dy = sc.nextInt(); 
+<a name="l290"><span class="ln">290  </span></a>            //one rectangle to the left of other 
+<a name="l291"><span class="ln">291  </span></a>            if ((ax &gt;= dx) || (bx &lt;= cx)) System.out.println(0); 
+<a name="l292"><span class="ln">292  </span></a>                //one rectangle to the top of other 
+<a name="l293"><span class="ln">293  </span></a>            else if ((ay &lt;= dy) || (by &gt;= cy)) System.out.println(0); 
+<a name="l294"><span class="ln">294  </span></a>            else System.out.println(1); 
+<a name="l295"><span class="ln">295  </span></a>        } 
+<a name="l296"><span class="ln">296  </span></a> 
+<a name="l297"><span class="ln">297  </span></a>    }*/</span><span class="s1"> 
+<a name="l298"><span class="ln">298  </span></a> 
+<a name="l299"><span class="ln">299  </span></a>}</span></pre>
+</body>
+</html>
